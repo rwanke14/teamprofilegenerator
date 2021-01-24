@@ -1,10 +1,10 @@
-const Employee = require('./lib/employee')
-const Manager = require('./lib/manager')
-const Intern = require('./lib/intern')
-const Engineer = require('./lib/engineer')
+const Employee = require('./library/employee')
+const Manager = require('./library/manager')
+const Intern = require('./library/intern')
+const Engineer = require('./library/engineer')
 const inquirer = require('inquirer')
 const fs = require('fs')
-const htmlrender = require('./htmlrenderer')
+// const htmlrender = require('./htmlrenderer')
 
 
 
