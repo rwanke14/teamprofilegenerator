@@ -1,3 +1,6 @@
+
+const Employee = require('./employee')
+
 class Manager extends Employee {
     constructor(office) {
       //super(id, 4, "beep");
