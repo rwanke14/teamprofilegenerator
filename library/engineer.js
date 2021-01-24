@@ -7,13 +7,14 @@ class Engineer extends Employee {
 
     getGithub(){
 
+        return this.github;
 
     }
 
 
     getRole(){
         //overrides Employee method with enigneer details
-
+        this.role = new Employee ("Engineer")
     }
 
 
