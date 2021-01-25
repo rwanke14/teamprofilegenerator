@@ -6,58 +6,130 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 // const htmlrender = require('./htmlrenderer')
 
-
+createTeam()
 
 //prompts: name, employee ID, email address, office number, github
 
-inquirer
-    .prompt([
-        {
-            type: 'input',
-            name: 'name',
-            message: 'What is the name of the employee?',
-        },
-        {
-            type: 'input',
-            name: 'id',
-            message: "What is the employee's ID?"
-        },
-        {
-            type: 'input',
-            name: 'email',
-            message: "What is the employee's email?",
-        },
-        {
-            type: 'list',
-            name: 'title',
-            message: "What is the employee's role?",
-            choices: ["Manager", "Engineer", "Intern"]
-        },
-        {
-            type: 'input',
-            name: 'office',
-            message: "What is the manager's office number?",
-        },
-        {
-            type: 'input',
-            name: 'github',
-            message: "What is the enigneer's github username?",
-        },
+function createTeam() {
+    console.log("I Work!")
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                name: 'name',
+                message: 'What is the name of the employee?',
+            },
+            {
+                type: 'input',
+                name: 'id',
+                message: "What is the employee's ID?"
+            },
+            {
+                type: 'input',
+                name: 'email',
+                message: "What is the employee's email?",
+            },
+            {
+                type: 'list',
+                name: 'role',
+                message: "What is the employee's role?",
+                choices: ["Manager", "Engineer", "Intern"]
+            },
 
+        ]).then((responses) => {
+
+            console.log("Hello")
+            createMember(responses)
+
+
+        });
+}
+
+function createMember(responses) {
+
+    const role = responses.role
+
+    switch (role) {
+
+        case "Manager":
+            console.log("working")
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'office',
+                    message: "What is the manager's office number?",
+                },
+            ]).then((responses) => {
+
+                console.log("Hello")
+                addTeamMember(responses)  
+    
+            });
+        break;
+
+        case "Engineer":
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'github',
+                    message: "What is the enigneer's github username?",
+                },
+            ]).then((responses) => {
+
+                console.log("Hello")
+                addTeamMember(responses)  
+    
+            });
+        break;
+
+        case "Intern":
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'school',
+                    message: "Where does the intern go to school?",
+                },
+            ]).then((responses) => {
+
+                console.log("Hello")
+                addTeamMember(responses)  
+    
+            });
+        break;
+    }
+}
+
+function addTeamMember() {
+    inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'team',
+            message: "Do you have another team member to add",
+        },
     ]).then((responses) => {
 
+        if (responses.team){
+            createTeam()
+        } 
 
-        //     fs.writeFile('README-sample.md', responses, (err) =>
-        //     err ? console.error(err) : console.log('Generating Readme file!')
+        // switch (responses.team) {
+        //     case responses.team === true:
+        //         createTeam();
+        //     break;
+        //     case responses.team === false:
 
-        //   );
+        //     break;
+        // }
 
-    });
+    })
+}
 
 
 
 // GIVEN a command-line application that accepts user input
+    //inqurier used to prompt quesitons
 // WHEN I am prompted for my team members and their information
+    //inqurier prompts with questions and list to ask for their role
 // THEN an HTML file is generated that displays a nicely formatted team roster based on user input
 // WHEN I click on an email address in the HTML
 // THEN my default email program opens and populates the TO field of the email with the address
