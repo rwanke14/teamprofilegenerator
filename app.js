@@ -2,9 +2,25 @@ const Employee = require('./library/employee')
 const Manager = require('./library/manager')
 const Intern = require('./library/intern')
 const Engineer = require('./library/engineer')
+
 const inquirer = require('inquirer')
 const fs = require('fs')
-// const htmlrender = require('./htmlrenderer')
+const path = require("path");
+
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "team.html");
+
+const render = require("./library/htmlRenderer");
+
+
+//Start prompts when app.js is run in terminal.
+
+// const renderManager = {};
+
+// const renderEngineer = {};
+
+// const renderIntern = {};
+const renderTeam = {};
 
 createTeam()
 
@@ -41,9 +57,10 @@ function createTeam() {
             console.log("Hello")
             createMember(responses)
 
-
         });
 }
+
+//function creates case statements for each role for additonal quesitons and triggers function for adding another team member.
 
 function createMember(responses) {
 
@@ -61,11 +78,16 @@ function createMember(responses) {
                 },
             ]).then((responses) => {
 
+                // const manager = new Manager (responses.name, responses.role, responses.email, responses.id, responses.office)
+                // renderTeam.push(manager)
+                
+                renderTeam.push(new Manager(responses.name, responses.role, responses.email, responses.id, responses.office))
+                
                 console.log("Hello")
-                addTeamMember(responses)  
-    
+                addTeamMember(responses)
+
             });
-        break;
+            break;
 
         case "Engineer":
             inquirer.prompt([
@@ -76,11 +98,16 @@ function createMember(responses) {
                 },
             ]).then((responses) => {
 
+                // const engineer = new Engineer (responses.name, responses.role, responses.email, responses.id, responses.github)
+                // renderTeam.push(engineer)
+                
+                renderTeam.push(new Engineer(responses.name, responses.role, responses.email, responses.id, responses.github))
+
                 console.log("Hello")
-                addTeamMember(responses)  
-    
+                addTeamMember(responses)
+
             });
-        break;
+            break;
 
         case "Intern":
             inquirer.prompt([
@@ -91,38 +118,61 @@ function createMember(responses) {
                 },
             ]).then((responses) => {
 
+                // const intern = new Intern (responses.name, responses.role, responses.email, responses.id, responses.school)
+                // renderTeam.push(intern)
+                renderTeam.push(new Intern(responses.name, responses.role, responses.email, responses.id, responses.school))
+
                 console.log("Hello")
-                addTeamMember(responses)  
-    
+                addTeamMember(responses)
+
             });
-        break;
+            break;
     }
 }
+
+//function triggers add a team member and calls prompts again. If no more team members are added it renders the html.
 
 function addTeamMember() {
     inquirer.prompt([
         {
             type: 'confirm',
             name: 'team',
-            message: "Do you have another team member to add",
+            message: "Do you have another team member to add?",
         },
     ]).then((responses) => {
 
-        if (responses.team){
-            createTeam()
-        } 
+        switch(responses.team){
+            case true:
+                createTeam()
+            break;
 
-        // switch (responses.team) {
-        //     case responses.team === true:
-        //         createTeam();
-        //     break;
-        //     case responses.team === false:
+            case false:
 
-        //     break;
+                if (fs.existsSync(OUTPUT_DIR) != true) {
+                    fs.mkdirSync(OUTPUT_DIR)
+                }
+
+                fs.writeFile(outputPath, render(renderTeam), (err) =>
+                err ? console.error(err) : console.log('Generating HTML!'));
+
+        }
+
+        // if (responses.team) {
+
+        //     createTeam()
+
+        // }
+        // else {
+
+        //     fs.writeFile(outputPath, render(renderTeam), (err) =>
+        //         err ? console.error(err) : console.log('Generating HTML!'));
+
         // }
 
     })
 }
+
+//add functions to create html code
 
 
 

@@ -3,8 +3,8 @@ const Employee = require('./employee')
 
 
 class Engineer extends Employee {
-    constructor(name, id, email, role, github) {
-      super(name, id, email, role);
+    constructor(name, role, email, id, github) {
+      super(name, role, email, id);
       this.github = github;
 
     }
@@ -19,7 +19,7 @@ class Engineer extends Employee {
 
     getRole(){
         //overrides Employee method with enigneer details
-        this.role = new Employee ("Engineer")
+        this.role = "Engineer"
     }
 
 
