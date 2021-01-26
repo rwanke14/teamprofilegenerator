@@ -1,4 +1,4 @@
-const Employee = require('./library/employee')
+//const Employee = require('./library/employee')
 const Manager = require('./library/manager')
 const Intern = require('./library/intern')
 const Engineer = require('./library/engineer')
@@ -20,7 +20,7 @@ const render = require("./library/htmlRenderer");
 // const renderEngineer = {};
 
 // const renderIntern = {};
-const renderTeam = {};
+const renderTeam = [];
 
 createTeam()
 
@@ -65,6 +65,7 @@ function createTeam() {
 function createMember(responses) {
 
     const role = responses.role
+    console.log(responses)
 
     switch (role) {
 
@@ -76,14 +77,15 @@ function createMember(responses) {
                     name: 'office',
                     message: "What is the manager's office number?",
                 },
-            ]).then((responses) => {
+            ]).then((managerResponses) => {
 
-                // const manager = new Manager (responses.name, responses.role, responses.email, responses.id, responses.office)
-                // renderTeam.push(manager)
+                const manager = new Manager (responses.name, responses.id,responses.email, managerResponses.office)
+                renderTeam.push(manager)
                 
-                renderTeam.push(new Manager(responses.name, responses.role, responses.email, responses.id, responses.office))
+                //renderTeam.push(new Manager(responses.name, responses.id,responses.email,responses.role, managerResponses.office))
                 
                 console.log("Hello")
+                console.log("Render Team: " + renderTeam)
                 addTeamMember(responses)
 
             });
@@ -96,12 +98,12 @@ function createMember(responses) {
                     name: 'github',
                     message: "What is the enigneer's github username?",
                 },
-            ]).then((responses) => {
+            ]).then((engineerResponses) => {
 
                 // const engineer = new Engineer (responses.name, responses.role, responses.email, responses.id, responses.github)
                 // renderTeam.push(engineer)
                 
-                renderTeam.push(new Engineer(responses.name, responses.role, responses.email, responses.id, responses.github))
+                renderTeam.push(new Engineer(responses.name, responses.id,responses.email, engineerResponses.github))
 
                 console.log("Hello")
                 addTeamMember(responses)
@@ -116,11 +118,11 @@ function createMember(responses) {
                     name: 'school',
                     message: "Where does the intern go to school?",
                 },
-            ]).then((responses) => {
+            ]).then((internResponses) => {
 
                 // const intern = new Intern (responses.name, responses.role, responses.email, responses.id, responses.school)
                 // renderTeam.push(intern)
-                renderTeam.push(new Intern(responses.name, responses.role, responses.email, responses.id, responses.school))
+                renderTeam.push(new Intern(responses.name, responses.id,responses.email, internResponses.school))
 
                 console.log("Hello")
                 addTeamMember(responses)
@@ -140,37 +142,39 @@ function addTeamMember() {
             message: "Do you have another team member to add?",
         },
     ]).then((responses) => {
-
+        console.log(render(renderTeam))
+        console.log("Testing: " + JSON.stringify(renderTeam))
         switch(responses.team){
             case true:
                 createTeam()
             break;
 
             case false:
-
                 if (fs.existsSync(OUTPUT_DIR) != true) {
                     fs.mkdirSync(OUTPUT_DIR)
                 }
-
+            
                 fs.writeFile(outputPath, render(renderTeam), (err) =>
-                err ? console.error(err) : console.log('Generating HTML!'));
-
+                err ? console.log(err) : console.log('Generating HTML!'));
+             
+            break;
         }
-
-        // if (responses.team) {
-
-        //     createTeam()
-
-        // }
-        // else {
-
-        //     fs.writeFile(outputPath, render(renderTeam), (err) =>
-        //         err ? console.error(err) : console.log('Generating HTML!'));
-
-        // }
 
     })
 }
+
+
+// function renderDetails () {
+
+//     if (fs.existsSync(OUTPUT_DIR) != true) {
+//         fs.mkdirSync(OUTPUT_DIR)
+//     }
+
+//     fs.writeFile(outputPath, render(renderTeam), (err) =>
+//     err ? console.error(err) : console.log('Generating HTML!'));
+
+    
+// }
 
 //add functions to create html code
 

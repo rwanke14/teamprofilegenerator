@@ -1,9 +1,9 @@
 class Employee {
-    constructor(name, role, email, id) {
+    constructor(name, id, email, role) {
         this.name = name;
-        this.role = role;
-        this.email = email;
         this.id = id;
+        this.email = email;
+        this.role = role;
     }
 
 

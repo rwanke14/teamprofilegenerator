@@ -1,8 +1,8 @@
 const Employee = require("./employee");
 
 class Intern extends Employee {
-    constructor(name, role, email, id, school) {
-      super(name, role, email, id);
+    constructor(name, id, email, school) {
+      super(name, id, email);
       this.school = school;
 
     }
@@ -14,7 +14,7 @@ class Intern extends Employee {
 
     getRole(){
 
-        this.role = "Intern"
+        return "Intern";
         //overrides employee get role with Intern details
     }
 
