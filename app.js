@@ -15,11 +15,6 @@ const render = require("./library/htmlRenderer");
 
 //Start prompts when app.js is run in terminal.
 
-// const renderManager = {};
-
-// const renderEngineer = {};
-
-// const renderIntern = {};
 const renderTeam = [];
 
 createTeam()
@@ -27,7 +22,7 @@ createTeam()
 //prompts: name, employee ID, email address, office number, github
 
 function createTeam() {
-    console.log("I Work!")
+
     inquirer
         .prompt([
             {
@@ -40,7 +35,7 @@ function createTeam() {
                     } else {
                         return true;
                     }
-                 }
+                }
             },
             {
                 type: 'input',
@@ -52,7 +47,7 @@ function createTeam() {
                     } else {
                         return true;
                     }
-                 }
+                }
             },
             {
                 type: 'input',
@@ -64,7 +59,7 @@ function createTeam() {
                     } else {
                         return true;
                     }
-                 }
+                }
             },
             {
                 type: 'list',
@@ -77,12 +72,11 @@ function createTeam() {
                     } else {
                         return true;
                     }
-                 }
+                }
             },
 
         ]).then((responses) => {
 
-            console.log("Hello")
             createMember(responses)
 
         });
@@ -93,7 +87,6 @@ function createTeam() {
 function createMember(responses) {
 
     const role = responses.role
-    console.log(responses)
 
     switch (role) {
 
@@ -110,17 +103,15 @@ function createMember(responses) {
                         } else {
                             return true;
                         }
-                     }
+                    }
                 },
             ]).then((managerResponses) => {
 
                 // const manager = new Manager (responses.name, responses.id,responses.email, managerResponses.office)
                 // renderTeam.push(manager)
-                
-                renderTeam.push(new Manager(responses.name, responses.id,responses.email,responses.role, managerResponses.office))
-                
-                console.log("Hello")
-                console.log("Render Team: " + renderTeam)
+
+                renderTeam.push(new Manager(responses.name, responses.id, responses.email, responses.role, managerResponses.office))
+
                 addTeamMember(responses)
 
             });
@@ -138,14 +129,13 @@ function createMember(responses) {
                         } else {
                             return true;
                         }
-                     }
+                    }
                 },
             ]).then((engineerResponses) => {
 
-                
-                renderTeam.push(new Engineer(responses.name, responses.id,responses.email, engineerResponses.github))
 
-                console.log("Hello")
+                renderTeam.push(new Engineer(responses.name, responses.id, responses.email, engineerResponses.github))
+
                 addTeamMember(responses)
 
             });
@@ -163,14 +153,13 @@ function createMember(responses) {
                         } else {
                             return true;
                         }
-                     }
+                    }
                 },
             ]).then((internResponses) => {
 
 
-                renderTeam.push(new Intern(responses.name, responses.id,responses.email, internResponses.school))
+                renderTeam.push(new Intern(responses.name, responses.id, responses.email, internResponses.school))
 
-                console.log("Hello")
                 addTeamMember(responses)
 
             });
@@ -192,25 +181,24 @@ function addTeamMember() {
                 } else {
                     return true;
                 }
-             }
+            }
         },
     ]).then((responses) => {
-        console.log(render(renderTeam))
-        console.log("Testing: " + JSON.stringify(renderTeam))
-        switch(responses.team){
+
+        switch (responses.team) {
             case true:
                 createTeam()
-            break;
+                break;
 
             case false:
                 if (fs.existsSync(OUTPUT_DIR) != true) {
                     fs.mkdirSync(OUTPUT_DIR)
                 }
-            
+
                 fs.writeFile(outputPath, render(renderTeam), (err) =>
-                err ? console.log(err) : console.log('Generating HTML!'));
-             
-            break;
+                    err ? console.log(err) : console.log('Generating HTML!'));
+
+                break;
         }
 
     })
