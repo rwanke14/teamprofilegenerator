@@ -34,22 +34,50 @@ function createTeam() {
                 type: 'input',
                 name: 'name',
                 message: 'What is the name of the employee?',
+                validate: async (input) => {
+                    if (input == false) {
+                        return 'Please enter employee name.';
+                    } else {
+                        return true;
+                    }
+                 }
             },
             {
                 type: 'input',
                 name: 'id',
-                message: "What is the employee's ID?"
+                message: "What is the employee's ID?",
+                validate: async (input) => {
+                    if (input == false) {
+                        return 'Please enter employee ID.';
+                    } else {
+                        return true;
+                    }
+                 }
             },
             {
                 type: 'input',
                 name: 'email',
                 message: "What is the employee's email?",
+                validate: async (input) => {
+                    if (input == false) {
+                        return 'Please enter employee email.';
+                    } else {
+                        return true;
+                    }
+                 }
             },
             {
                 type: 'list',
                 name: 'role',
                 message: "What is the employee's role?",
-                choices: ["Manager", "Engineer", "Intern"]
+                choices: ["Manager", "Engineer", "Intern"],
+                validate: async (list) => {
+                    if (list == false) {
+                        return 'Please select employee role.';
+                    } else {
+                        return true;
+                    }
+                 }
             },
 
         ]).then((responses) => {
@@ -76,13 +104,20 @@ function createMember(responses) {
                     type: 'input',
                     name: 'office',
                     message: "What is the manager's office number?",
+                    validate: async (input) => {
+                        if (input == false) {
+                            return 'Please enter office number.';
+                        } else {
+                            return true;
+                        }
+                     }
                 },
             ]).then((managerResponses) => {
 
-                const manager = new Manager (responses.name, responses.id,responses.email, managerResponses.office)
-                renderTeam.push(manager)
+                // const manager = new Manager (responses.name, responses.id,responses.email, managerResponses.office)
+                // renderTeam.push(manager)
                 
-                //renderTeam.push(new Manager(responses.name, responses.id,responses.email,responses.role, managerResponses.office))
+                renderTeam.push(new Manager(responses.name, responses.id,responses.email,responses.role, managerResponses.office))
                 
                 console.log("Hello")
                 console.log("Render Team: " + renderTeam)
@@ -97,11 +132,16 @@ function createMember(responses) {
                     type: 'input',
                     name: 'github',
                     message: "What is the enigneer's github username?",
+                    validate: async (input) => {
+                        if (input == false) {
+                            return 'Please enter employee username.';
+                        } else {
+                            return true;
+                        }
+                     }
                 },
             ]).then((engineerResponses) => {
 
-                // const engineer = new Engineer (responses.name, responses.role, responses.email, responses.id, responses.github)
-                // renderTeam.push(engineer)
                 
                 renderTeam.push(new Engineer(responses.name, responses.id,responses.email, engineerResponses.github))
 
@@ -117,11 +157,17 @@ function createMember(responses) {
                     type: 'input',
                     name: 'school',
                     message: "Where does the intern go to school?",
+                    validate: async (input) => {
+                        if (input == false) {
+                            return 'Please enter school.';
+                        } else {
+                            return true;
+                        }
+                     }
                 },
             ]).then((internResponses) => {
 
-                // const intern = new Intern (responses.name, responses.role, responses.email, responses.id, responses.school)
-                // renderTeam.push(intern)
+
                 renderTeam.push(new Intern(responses.name, responses.id,responses.email, internResponses.school))
 
                 console.log("Hello")
@@ -140,6 +186,13 @@ function addTeamMember() {
             type: 'confirm',
             name: 'team',
             message: "Do you have another team member to add?",
+            validate: async (input) => {
+                if (input == false) {
+                    return 'Please select yes or no.';
+                } else {
+                    return true;
+                }
+             }
         },
     ]).then((responses) => {
         console.log(render(renderTeam))
@@ -164,19 +217,9 @@ function addTeamMember() {
 }
 
 
-// function renderDetails () {
 
-//     if (fs.existsSync(OUTPUT_DIR) != true) {
-//         fs.mkdirSync(OUTPUT_DIR)
-//     }
 
-//     fs.writeFile(outputPath, render(renderTeam), (err) =>
-//     err ? console.error(err) : console.log('Generating HTML!'));
 
-    
-// }
-
-//add functions to create html code
 
 
 

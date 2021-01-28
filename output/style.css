@@ -1,0 +1,23 @@
+.jumbotron{
+    background-color: #9E87AB;
+    color: white;
+}
+
+body {
+    background-color:#F8E0D6;
+    background-image: url(./images/whitebrick.jpg);
+}
+
+.card {
+    margin-right: 5%;
+    background-color: #9E87AB;
+    color: white;
+}
+
+.list-group {
+    color: #9E87AB;
+}
+
+h2.card-title {
+    text-align: center;
+}
