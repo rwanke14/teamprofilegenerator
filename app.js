@@ -109,9 +109,6 @@ function createMember(responses) {
                 },
             ]).then((managerResponses) => {
 
-                // const manager = new Manager (responses.name, responses.id,responses.email, managerResponses.office)
-                // renderTeam.push(manager)
-
                 renderTeam.push(new Manager(responses.name, responses.id, responses.email, responses.role, managerResponses.office))
 
                 addTeamMember(responses)
