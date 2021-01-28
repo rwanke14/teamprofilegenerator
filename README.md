@@ -24,6 +24,9 @@ Using jest tests are run on the files in the library folder to confirm they will
 <br>
 
 ## Video Walkthrough:
+<br>
+
+[![Team Profile Generator Walkthrough](./screenshots/video.png)](https://drive.google.com/file/d/1lD4EPbEP3wcGkWIzqUSoYFmnqPHGIEeN/view)
 
 <br>
 

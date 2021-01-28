@@ -23,6 +23,8 @@ createTeam()
 
 function createTeam() {
 
+    console.log("\x1b[34m", "Please set up your Manager's information first, before adding addiitonal employees!")
+
     inquirer
         .prompt([
             {
